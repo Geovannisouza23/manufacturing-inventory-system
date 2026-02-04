@@ -1,0 +1,95 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  cypress:
+    name: Cypress E2E Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: inventory_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Start Backend
+      working-directory: ./backend
+      run: |
+        ./mvnw clean package -DskipTests
+        java -jar target/quarkus-app/quarkus-run.jar &
+        echo $! > backend.pid
+        sleep 30
+      env:
+        QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://localhost:5432/inventory_db
+        QUARKUS_DATASOURCE_USERNAME: postgres
+        QUARKUS_DATASOURCE_PASSWORD: postgres
+
+    - name: Install Frontend dependencies
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Start Frontend
+      working-directory: ./frontend
+      run: |
+        npm start &
+        echo $! > frontend.pid
+        npx wait-on http://localhost:3000 --timeout 60000
+
+    - name: Run Cypress tests
+      working-directory: ./frontend
+      run: npm run cypress:run
+
+    - name: Upload Cypress screenshots
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cypress-screenshots
+        path: frontend/cypress/screenshots/
+        retention-days: 7
+
+    - name: Upload Cypress videos
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cypress-videos
+        path: frontend/cypress/videos/
+        retention-days: 7
+
+    - name: Cleanup
+      if: always()
+      run: |
+        if [ -f backend/backend.pid ]; then kill $(cat backend/backend.pid) || true; fi
+        if [ -f frontend/frontend.pid ]; then kill $(cat frontend/frontend.pid) || true; fi
