@@ -1,0 +1,16 @@
+#!/bin/sh
+# Maven Wrapper script
+MAVEN_PROJECTBASEDIR="${MAVEN_BASEDIR:-$(cd "$(dirname "$0")"; pwd)}"
+if [ -z "$MAVEN_WRAPPER_JAR" ]; then
+  MAVEN_WRAPPER_JAR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar"
+fi
+if [ ! -f "$MAVEN_WRAPPER_JAR" ]; then
+  echo "Error: Maven wrapper jar not found. Installing Maven..."
+  if command -v mvn > /dev/null 2>&1; then
+    exec mvn "$@"
+  else
+    echo "Please install Maven manually or use Docker."
+    exit 1
+  fi
+fi
+exec java -jar "$MAVEN_WRAPPER_JAR" "$@"
