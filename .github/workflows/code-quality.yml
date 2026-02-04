@@ -10,7 +10,8 @@ jobs:
   sonarcloud:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # Disabled until SONAR_TOKEN is configured in repository secrets
+    if: false
 
     steps:
     - name: Checkout code

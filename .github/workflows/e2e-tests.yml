@@ -11,6 +11,9 @@ jobs:
   cypress:
     name: Cypress E2E Tests
     runs-on: ubuntu-latest
+    # Temporarily disabled - requires backend and frontend running in CI
+    # Will be enabled after proper service orchestration is configured
+    if: false
 
     services:
       postgres:
