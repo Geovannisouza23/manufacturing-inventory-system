@@ -14,7 +14,7 @@ function ProductForm() {
   const [formData, setFormData] = useState({
     code: '',
     name: '',
-    value: '',
+    price: '',
     materials: [],
   });
 
@@ -37,7 +37,7 @@ function ProductForm() {
         setFormData({
           code: product.code,
           name: product.name,
-          value: product.value,
+          price: product.price,
           materials: product.materials || [],
         });
       }
@@ -82,7 +82,7 @@ function ProductForm() {
     e.preventDefault();
     const productData = {
       ...formData,
-      value: parseFloat(formData.value),
+      price: parseFloat(formData.price),
     };
 
     if (id) {
@@ -121,12 +121,12 @@ function ProductForm() {
           </div>
 
           <div className="form-group">
-            <label>Value *</label>
+            <label>Price *</label>
             <input
               type="number"
               step="0.01"
-              name="value"
-              value={formData.value}
+              name="price"
+              value={formData.price}
               onChange={handleChange}
               required
             />

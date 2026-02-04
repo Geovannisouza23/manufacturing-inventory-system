@@ -48,7 +48,7 @@ function ProductsList() {
                 <tr>
                   <th>Code</th>
                   <th>Name</th>
-                  <th>Value</th>
+                  <th>Price</th>
                   <th>Materials</th>
                   <th>Actions</th>
                 </tr>
@@ -58,7 +58,7 @@ function ProductsList() {
                   <tr key={product.id}>
                     <td>{product.code}</td>
                     <td>{product.name}</td>
-                    <td>${product.value?.toFixed(2)}</td>
+                    <td>${product.price?.toFixed(2)}</td>
                     <td>{product.materials?.length || 0} material(s)</td>
                     <td>
                       <div className="table-actions">
