@@ -2,11 +2,10 @@ package com.inventory.resource;
 
 import com.inventory.dto.ProductDTO;
 import com.inventory.service.ProductService;
-import jakarta.inject.Inject;
-import jakarta.validation.Valid;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -30,14 +29,14 @@ public class ProductResource {
     }
 
     @POST
-    public Response createProduct(@Valid ProductDTO product) {
+    public Response createProduct(ProductDTO product) {
         ProductDTO created = productService.create(product);
         return Response.status(Response.Status.CREATED).entity(created).build();
     }
 
     @PUT
     @Path("/{id}")
-    public ProductDTO updateProduct(@PathParam("id") Long id, @Valid ProductDTO product) {
+    public ProductDTO updateProduct(@PathParam("id") Long id, ProductDTO product) {
         return productService.update(id, product);
     }
 

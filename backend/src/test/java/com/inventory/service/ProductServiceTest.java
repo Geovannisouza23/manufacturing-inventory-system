@@ -6,9 +6,9 @@ import com.inventory.repository.ProductMaterialRepository;
 import com.inventory.repository.ProductRepository;
 import com.inventory.repository.RawMaterialRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -31,14 +31,14 @@ public class ProductServiceTest {
         ProductDTO dto = new ProductDTO();
         dto.setCode("TEST001");
         dto.setName("Test Product");
-        dto.setValue(new BigDecimal("100.00"));
+        dto.setPrice(new BigDecimal("100.00"));
 
         ProductDTO created = productService.create(dto);
 
         assertNotNull(created.getId());
         assertEquals("TEST001", created.getCode());
         assertEquals("Test Product", created.getName());
-        assertEquals(new BigDecimal("100.00"), created.getValue());
+        assertEquals(new BigDecimal("100.00"), created.getPrice());
     }
 
     @Test
@@ -62,12 +62,12 @@ public class ProductServiceTest {
         ProductDTO dto = new ProductDTO();
         dto.setCode("TEST003");
         dto.setName("Updated Product");
-        dto.setValue(new BigDecimal("350.00"));
+        dto.setPrice(new BigDecimal("350.00"));
 
         ProductDTO updated = productService.update(product.getId(), dto);
 
         assertEquals("Updated Product", updated.getName());
-        assertEquals(new BigDecimal("350.00"), updated.getValue());
+        assertEquals(new BigDecimal("350.00"), updated.getPrice());
     }
 
     @Test

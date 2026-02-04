@@ -8,17 +8,17 @@ public class ProductDTO {
     private Long id;
     private String code;
     private String name;
-    private BigDecimal value;
+    private BigDecimal price;
     private List<ProductMaterialDTO> materials = new ArrayList<>();
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String code, String name, BigDecimal value) {
+    public ProductDTO(Long id, String code, String name, BigDecimal price) {
         this.id = id;
         this.code = code;
         this.name = name;
-        this.value = value;
+        this.price = price;
     }
 
     // Getters and Setters
@@ -46,12 +46,12 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public List<ProductMaterialDTO> getMaterials() {

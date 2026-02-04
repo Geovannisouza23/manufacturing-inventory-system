@@ -5,8 +5,8 @@ import com.inventory.dto.ProductionReportDTO;
 import com.inventory.entity.Product;
 import com.inventory.entity.ProductMaterial;
 import com.inventory.repository.ProductRepository;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -67,7 +67,7 @@ public class ProductionService {
                     product.getId(),
                     product.getCode(),
                     product.getName(),
-                    product.getValue(),
+                    product.getPrice(),
                     0,
                     BigDecimal.ZERO
             );
@@ -92,9 +92,9 @@ public class ProductionService {
                 product.getId(),
                 product.getCode(),
                 product.getName(),
-                product.getValue(),
+                product.getPrice(),
                 maxQuantity,
-                product.getValue().multiply(new BigDecimal(maxQuantity))
+                product.getPrice().multiply(new BigDecimal(maxQuantity))
         );
     }
 

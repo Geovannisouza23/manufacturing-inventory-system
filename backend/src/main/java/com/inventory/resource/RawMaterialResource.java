@@ -2,11 +2,10 @@ package com.inventory.resource;
 
 import com.inventory.dto.RawMaterialDTO;
 import com.inventory.service.RawMaterialService;
-import jakarta.inject.Inject;
-import jakarta.validation.Valid;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -30,14 +29,14 @@ public class RawMaterialResource {
     }
 
     @POST
-    public Response createRawMaterial(@Valid RawMaterialDTO material) {
+    public Response createRawMaterial(RawMaterialDTO material) {
         RawMaterialDTO created = rawMaterialService.create(material);
         return Response.status(Response.Status.CREATED).entity(created).build();
     }
 
     @PUT
     @Path("/{id}")
-    public RawMaterialDTO updateRawMaterial(@PathParam("id") Long id, @Valid RawMaterialDTO material) {
+    public RawMaterialDTO updateRawMaterial(@PathParam("id") Long id, RawMaterialDTO material) {
         return rawMaterialService.update(id, material);
     }
 

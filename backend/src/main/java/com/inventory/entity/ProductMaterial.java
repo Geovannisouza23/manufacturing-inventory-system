@@ -2,7 +2,7 @@ package com.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "product_materials")

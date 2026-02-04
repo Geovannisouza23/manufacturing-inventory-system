@@ -22,13 +22,11 @@ public class ProductResourceTest {
 
     @Test
     public void testCreateProduct() {
-        String productJson = """
-                {
-                    "code": "PROD001",
-                    "name": "Test Product",
-                    "value": 100.50
-                }
-                """;
+        String productJson = "{"
+                + "\"code\": \"PROD001\","
+                + "\"name\": \"Test Product\","
+                + "\"price\": 100.50"
+                + "}";
 
         given()
                 .contentType(ContentType.JSON)

@@ -2,11 +2,11 @@ package com.inventory.resource;
 
 import com.inventory.dto.ProductionReportDTO;
 import com.inventory.service.ProductionService;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @Path("/api/production")
 @Produces(MediaType.APPLICATION_JSON)

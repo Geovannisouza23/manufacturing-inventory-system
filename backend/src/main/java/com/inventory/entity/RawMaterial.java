@@ -1,7 +1,7 @@
 package com.inventory.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "raw_materials")

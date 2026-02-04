@@ -1,7 +1,7 @@
 package com.inventory.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Product extends PanacheEntityBase {
     private String name;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal value;
+    private BigDecimal price;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProductMaterial> materials = new ArrayList<>();
@@ -29,10 +29,10 @@ public class Product extends PanacheEntityBase {
     public Product() {
     }
 
-    public Product(String code, String name, BigDecimal value) {
+    public Product(String code, String name, BigDecimal price) {
         this.code = code;
         this.name = name;
-        this.value = value;
+        this.price = price;
     }
 
     // Getters and Setters
@@ -60,12 +60,12 @@ public class Product extends PanacheEntityBase {
         this.name = name;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public List<ProductMaterial> getMaterials() {

@@ -8,11 +8,11 @@ import com.inventory.entity.RawMaterial;
 import com.inventory.repository.ProductMaterialRepository;
 import com.inventory.repository.ProductRepository;
 import com.inventory.repository.RawMaterialRepository;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.WebApplicationException;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +50,7 @@ public class ProductService {
         Product product = new Product();
         product.setCode(dto.getCode());
         product.setName(dto.getName());
-        product.setValue(dto.getValue());
+        product.setPrice(dto.getPrice());
 
         productRepository.persist(product);
 
@@ -84,7 +84,7 @@ public class ProductService {
 
         product.setCode(dto.getCode());
         product.setName(dto.getName());
-        product.setValue(dto.getValue());
+        product.setPrice(dto.getPrice());
 
         // Update materials
         product.getMaterials().clear();
@@ -117,7 +117,7 @@ public class ProductService {
         dto.setId(product.getId());
         dto.setCode(product.getCode());
         dto.setName(product.getName());
-        dto.setValue(product.getValue());
+        dto.setPrice(product.getPrice());
 
         if (product.getMaterials() != null) {
             dto.setMaterials(

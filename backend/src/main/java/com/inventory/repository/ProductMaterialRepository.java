@@ -2,7 +2,7 @@ package com.inventory.repository;
 
 import com.inventory.entity.ProductMaterial;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import jakarta.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 
