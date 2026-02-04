@@ -7,7 +7,7 @@ function RawMaterialForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: materials } = useSelector((state) => state.rawMaterials);
+  const { items: materials = [] } = useSelector((state) => state.rawMaterials || {});
 
   const [formData, setFormData] = useState({
     code: '',

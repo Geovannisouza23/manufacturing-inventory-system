@@ -4,7 +4,7 @@ import { calculateProduction } from '../store/slices/productionSlice';
 
 function Production() {
   const dispatch = useDispatch();
-  const { report, loading, error } = useSelector((state) => state.production);
+  const { report = null, loading = false, error = null } = useSelector((state) => state.production || {});
 
   useEffect(() => {
     dispatch(calculateProduction());

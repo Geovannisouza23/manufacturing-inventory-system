@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function ProductsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: products, loading, error } = useSelector((state) => state.products);
+  const { items: products = [], loading = false, error = null } = useSelector((state) => state.products || {});
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => {

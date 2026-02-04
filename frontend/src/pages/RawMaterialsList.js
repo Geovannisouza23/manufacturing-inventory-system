@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function RawMaterialsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: materials, loading, error } = useSelector((state) => state.rawMaterials);
+  const { items: materials = [], loading = false, error = null } = useSelector((state) => state.rawMaterials || {});
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => {

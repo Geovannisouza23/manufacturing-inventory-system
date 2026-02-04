@@ -8,8 +8,8 @@ function ProductForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: products } = useSelector((state) => state.products);
-  const { items: rawMaterials } = useSelector((state) => state.rawMaterials);
+  const { items: products = [] } = useSelector((state) => state.products || {});
+  const { items: rawMaterials = [] } = useSelector((state) => state.rawMaterials || {});
 
   const [formData, setFormData] = useState({
     code: '',
