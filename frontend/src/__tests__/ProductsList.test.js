@@ -1,11 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import ProductsList from '../pages/ProductsList';
 
 const mockStore = configureStore([]);
+
+// Mock useNavigate
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
 
 describe('ProductsList Component', () => {
   let store;
@@ -18,14 +24,15 @@ describe('ProductsList Component', () => {
         error: null
       }
     });
+    store.dispatch = jest.fn();
   });
 
   test('renders products list heading', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ProductsList />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>
     );
     
@@ -35,9 +42,9 @@ describe('ProductsList Component', () => {
   test('renders add new product button', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ProductsList />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>
     );
     
@@ -47,9 +54,9 @@ describe('ProductsList Component', () => {
   test('shows empty state when no products', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ProductsList />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>
     );
     
@@ -67,12 +74,13 @@ describe('ProductsList Component', () => {
         error: null
       }
     });
+    store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ProductsList />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>
     );
     

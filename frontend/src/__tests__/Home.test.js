@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 
 describe('Home Component', () => {
   test('renders welcome message', () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <Home />
-      </BrowserRouter>
+      </MemoryRouter>
     );
     
     expect(screen.getByText(/Welcome to/i)).toBeInTheDocument();
@@ -16,12 +16,12 @@ describe('Home Component', () => {
 
   test('renders action cards', () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <Home />
-      </BrowserRouter>
+      </MemoryRouter>
     );
     
-    const buttons = screen.getAllByRole('link');
-    expect(buttons.length).toBeGreaterThan(0);
+    const links = screen.getAllByRole('link');
+    expect(links.length).toBeGreaterThan(0);
   });
 });
