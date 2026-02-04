@@ -39,7 +39,7 @@ describe('RawMaterialForm Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Raw Material Form/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /New Raw Material/i })).toBeInTheDocument();
   });
 
   test('form has input fields', () => {
@@ -64,7 +64,7 @@ describe('RawMaterialForm Component', () => {
       </Provider>
     );
     
-    const codeInput = screen.getByPlaceholderText(/Enter raw material code/i);
+    const codeInput = screen.getByLabelText(/Code/i);
     fireEvent.change(codeInput, { target: { value: 'RM001' } });
     expect(codeInput.value).toBe('RM001');
   });

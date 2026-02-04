@@ -44,7 +44,7 @@ describe('ProductForm Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Product Form/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /New Product/i })).toBeInTheDocument();
   });
 
   test('form has input fields', () => {
@@ -69,7 +69,7 @@ describe('ProductForm Component', () => {
       </Provider>
     );
     
-    const codeInput = screen.getByPlaceholderText(/Enter product code/i);
+    const codeInput = screen.getByLabelText(/Code/i);
     fireEvent.change(codeInput, { target: { value: 'P001' } });
     expect(codeInput.value).toBe('P001');
   });

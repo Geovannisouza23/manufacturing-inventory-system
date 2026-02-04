@@ -38,7 +38,7 @@ describe('ProductsList Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Products/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Products/i })).toBeInTheDocument();
   });
 
   test('renders add new product button', () => {

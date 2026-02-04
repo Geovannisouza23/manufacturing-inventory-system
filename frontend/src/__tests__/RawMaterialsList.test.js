@@ -38,7 +38,7 @@ describe('RawMaterialsList Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Raw Materials/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Raw Materials/i })).toBeInTheDocument();
   });
 
   test('shows empty state when no materials', () => {
@@ -50,7 +50,7 @@ describe('RawMaterialsList Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/No raw materials found/i)).toBeInTheDocument();
+    expect(screen.getByText(/No raw materials found.*Add New Material/i)).toBeInTheDocument();
   });
 
   test('renders materials when available', () => {
@@ -129,7 +129,7 @@ describe('RawMaterialsList Component', () => {
       </Provider>
     );
     
-    const addButton = screen.getByText(/Add New Raw Material/i);
+    const addButton = screen.getByText(/Add New Material/i);
     fireEvent.click(addButton);
     expect(mockNavigate).toHaveBeenCalledWith('/raw-materials/new');
   });
