@@ -11,8 +11,18 @@ describe('App Component', () => {
   test('renders navigation menu', () => {
     render(<App />);
     expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Products')).toBeInTheDocument();
+    
+    // Use getAllByText for elements that appear multiple times
+    const productsLinks = screen.getAllByText('Products');
+    expect(productsLinks.length).toBeGreaterThan(0);
+    
     expect(screen.getByText('Raw Materials')).toBeInTheDocument();
-    expect(screen.getByText('Production')).toBeInTheDocument();
+    expect(screen.getAllByText('Production').length).toBeGreaterThan(0);
+  });
+
+  test('renders main navigation bar', () => {
+    render(<App />);
+    const navbar = screen.getByRole('navigation');
+    expect(navbar).toBeInTheDocument();
   });
 });
