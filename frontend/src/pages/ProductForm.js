@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createProduct, updateProduct, fetchProducts } from '../store/slices/productsSlice';
 import { fetchRawMaterials } from '../store/slices/rawMaterialsSlice';
+import { selectProductsItems, selectRawMaterialsItems } from '../store/selectors';
 
 function ProductForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: products = [] } = useSelector((state) => state.products || {});
-  const { items: rawMaterials = [] } = useSelector((state) => state.rawMaterials || {});
+  const products = useSelector(selectProductsItems);
+  const rawMaterials = useSelector(selectRawMaterialsItems);
 
   const [formData, setFormData] = useState({
     code: '',

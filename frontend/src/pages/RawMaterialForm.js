@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createRawMaterial, updateRawMaterial, fetchRawMaterials } from '../store/slices/rawMaterialsSlice';
+import { selectRawMaterialsItems } from '../store/selectors';
 
 function RawMaterialForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: materials = [] } = useSelector((state) => state.rawMaterials || {});
+  const materials = useSelector(selectRawMaterialsItems);
 
   const [formData, setFormData] = useState({
     code: '',

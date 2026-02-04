@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRawMaterials, deleteRawMaterial } from '../store/slices/rawMaterialsSlice';
+import { selectRawMaterialsItems, selectRawMaterialsLoading, selectRawMaterialsError } from '../store/selectors';
 import { useNavigate } from 'react-router-dom';
 
 function RawMaterialsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: materials = [], loading = false, error = null } = useSelector((state) => state.rawMaterials || {});
+  const materials = useSelector(selectRawMaterialsItems);
+  const loading = useSelector(selectRawMaterialsLoading);
+  const error = useSelector(selectRawMaterialsError);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => {

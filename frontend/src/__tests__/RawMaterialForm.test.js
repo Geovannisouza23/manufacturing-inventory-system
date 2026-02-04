@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import ProductForm from '../pages/ProductForm';
+import RawMaterialForm from '../pages/RawMaterialForm';
 
 const mockStore = configureStore([]);
 
@@ -15,16 +15,11 @@ jest.mock('react-router-dom', () => ({
   useParams: () => ({}),
 }));
 
-describe('ProductForm Component', () => {
+describe('RawMaterialForm Component', () => {
   let store;
 
   beforeEach(() => {
     store = mockStore({
-      products: {
-        items: [],
-        loading: false,
-        error: null
-      },
       rawMaterials: {
         items: [],
         loading: false,
@@ -35,23 +30,23 @@ describe('ProductForm Component', () => {
     mockedNavigate.mockClear();
   });
 
-  test('renders product form with all fields', () => {
+  test('renders raw material form with all fields', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
     
-    expect(screen.getByText(/Product Form/i)).toBeInTheDocument();
+    expect(screen.getByText(/Raw Material Form/i)).toBeInTheDocument();
   });
 
   test('form has input fields', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
@@ -64,33 +59,33 @@ describe('ProductForm Component', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
     
-    const codeInput = screen.getByPlaceholderText(/Enter product code/i);
-    fireEvent.change(codeInput, { target: { value: 'P001' } });
-    expect(codeInput.value).toBe('P001');
+    const codeInput = screen.getByPlaceholderText(/Enter raw material code/i);
+    fireEvent.change(codeInput, { target: { value: 'RM001' } });
+    expect(codeInput.value).toBe('RM001');
   });
 
   test('shows save button', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
     
-    expect(screen.getByText(/Save Product/i)).toBeInTheDocument();
+    expect(screen.getByText(/Save Raw Material/i)).toBeInTheDocument();
   });
 
   test('shows cancel button', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
@@ -102,13 +97,13 @@ describe('ProductForm Component', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <ProductForm />
+          <RawMaterialForm />
         </MemoryRouter>
       </Provider>
     );
     
     const cancelButton = screen.getByText(/Cancel/i);
     fireEvent.click(cancelButton);
-    expect(mockedNavigate).toHaveBeenCalledWith('/products');
+    expect(mockedNavigate).toHaveBeenCalledWith('/raw-materials');
   });
 });

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, deleteProduct } from '../store/slices/productsSlice';
+import { selectProductsItems, selectProductsLoading, selectProductsError } from '../store/selectors';
 import { useNavigate } from 'react-router-dom';
 
 function ProductsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: products = [], loading = false, error = null } = useSelector((state) => state.products || {});
+  const products = useSelector(selectProductsItems);
+  const loading = useSelector(selectProductsLoading);
+  const error = useSelector(selectProductsError);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => {

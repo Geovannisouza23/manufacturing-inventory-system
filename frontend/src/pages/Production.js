@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateProduction } from '../store/slices/productionSlice';
+import { selectProductionReport, selectProductionLoading, selectProductionError } from '../store/selectors';
 
 function Production() {
   const dispatch = useDispatch();
-  const { report = null, loading = false, error = null } = useSelector((state) => state.production || {});
+  const report = useSelector(selectProductionReport);
+  const loading = useSelector(selectProductionLoading);
+  const error = useSelector(selectProductionError);
 
   useEffect(() => {
     dispatch(calculateProduction());

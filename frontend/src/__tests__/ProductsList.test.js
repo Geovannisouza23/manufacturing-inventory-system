@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -8,9 +8,10 @@ import ProductsList from '../pages/ProductsList';
 const mockStore = configureStore([]);
 
 // Mock useNavigate
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => jest.fn(),
+  useNavigate: () => mockNavigate,
 }));
 
 describe('ProductsList Component', () => {
@@ -25,6 +26,7 @@ describe('ProductsList Component', () => {
       }
     });
     store.dispatch = jest.fn();
+    mockNavigate.mockClear();
   });
 
   test('renders products list heading', () => {
@@ -86,5 +88,86 @@ describe('ProductsList Component', () => {
     
     expect(screen.getByText('Product 1')).toBeInTheDocument();
     expect(screen.getByText('Product 2')).toBeInTheDocument();
+  });
+
+  test('shows loading state', () => {
+    store = mockStore({
+      products: {
+        items: [],
+        loading: true,
+        error: null
+      }
+    });
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductsList />
+        </MemoryRouter>
+      </Provider>
+    );
+    
+    expect(screen.getByText(/Loading products/i)).toBeInTheDocument();
+  });
+
+  test('shows error state', () => {
+    store = mockStore({
+      products: {
+        items: [],
+        loading: false,
+        error: 'Failed to fetch products'
+      }
+    });
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductsList />
+        </MemoryRouter>
+      </Provider>
+    );
+    
+    expect(screen.getByText(/Error: Failed to fetch products/i)).toBeInTheDocument();
+  });
+
+  test('navigates to new product form when add button clicked', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductsList />
+        </MemoryRouter>
+      </Provider>
+    );
+    
+    const addButton = screen.getByText(/Add New Product/i);
+    fireEvent.click(addButton);
+    expect(mockNavigate).toHaveBeenCalledWith('/products/new');
+  });
+
+  test('handles delete confirmation', () => {
+    store = mockStore({
+      products: {
+        items: [
+          { id: 1, code: 'P001', name: 'Product 1', price: 100 }
+        ],
+        loading: false,
+        error: null
+      }
+    });
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductsList />
+        </MemoryRouter>
+      </Provider>
+    );
+    
+    const deleteButtons = screen.getAllByText(/Delete/i);
+    fireEvent.click(deleteButtons[0]);
+    expect(screen.getByText(/Confirm/i)).toBeInTheDocument();
   });
 });
