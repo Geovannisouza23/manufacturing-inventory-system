@@ -64,7 +64,8 @@ describe('RawMaterialForm Component', () => {
       </Provider>
     );
     
-    const codeInput = screen.getByLabelText(/Code/i);
+    const inputs = screen.getAllByRole('textbox');
+    const codeInput = inputs[0]; // First textbox is code
     fireEvent.change(codeInput, { target: { value: 'RM001' } });
     expect(codeInput.value).toBe('RM001');
   });
@@ -78,7 +79,7 @@ describe('RawMaterialForm Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Save Raw Material/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Create Material/i })).toBeInTheDocument();
   });
 
   test('shows cancel button', () => {

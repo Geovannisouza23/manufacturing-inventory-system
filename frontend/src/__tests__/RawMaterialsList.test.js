@@ -129,7 +129,7 @@ describe('RawMaterialsList Component', () => {
       </Provider>
     );
     
-    const addButton = screen.getByText(/Add New Material/i);
+    const addButton = screen.getByRole('button', { name: /Add New Material/i });
     fireEvent.click(addButton);
     expect(mockNavigate).toHaveBeenCalledWith('/raw-materials/new');
   });

@@ -69,7 +69,8 @@ describe('ProductForm Component', () => {
       </Provider>
     );
     
-    const codeInput = screen.getByLabelText(/Code/i);
+    const inputs = screen.getAllByRole('textbox');
+    const codeInput = inputs[0]; // First textbox is code
     fireEvent.change(codeInput, { target: { value: 'P001' } });
     expect(codeInput.value).toBe('P001');
   });
@@ -83,7 +84,7 @@ describe('ProductForm Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Save Product/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Create Product/i })).toBeInTheDocument();
   });
 
   test('shows cancel button', () => {

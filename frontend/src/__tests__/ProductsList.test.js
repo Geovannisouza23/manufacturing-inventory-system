@@ -50,7 +50,7 @@ describe('ProductsList Component', () => {
       </Provider>
     );
     
-    expect(screen.getByText(/Add New Product/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Add New Product/i })).toBeInTheDocument();
   });
 
   test('shows empty state when no products', () => {
@@ -141,7 +141,7 @@ describe('ProductsList Component', () => {
       </Provider>
     );
     
-    const addButton = screen.getByText(/Add New Product/i);
+    const addButton = screen.getByRole('button', { name: /Add New Product/i });
     fireEvent.click(addButton);
     expect(mockNavigate).toHaveBeenCalledWith('/products/new');
   });
