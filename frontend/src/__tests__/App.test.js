@@ -16,8 +16,11 @@ describe('App Component', () => {
     const productsLinks = screen.getAllByText('Products');
     expect(productsLinks.length).toBeGreaterThan(0);
     
-    expect(screen.getByText('Raw Materials')).toBeInTheDocument();
-    expect(screen.getAllByText('Production').length).toBeGreaterThan(0);
+    const rawMaterialsLinks = screen.getAllByText('Raw Materials');
+    expect(rawMaterialsLinks.length).toBeGreaterThan(0);
+    
+    const productionLinks = screen.getAllByText('Production');
+    expect(productionLinks.length).toBeGreaterThan(0);
   });
 
   test('renders main navigation bar', () => {
