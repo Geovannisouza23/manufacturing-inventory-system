@@ -168,6 +168,6 @@ describe('ProductsList Component', () => {
     
     const deleteButtons = screen.getAllByText(/Delete/i);
     fireEvent.click(deleteButtons[0]);
-    expect(screen.getByText(/Confirm/i)).toBeInTheDocument();
+    expect(screen.getByText(/Confirm\?/i)).toBeInTheDocument();
   });
 });
