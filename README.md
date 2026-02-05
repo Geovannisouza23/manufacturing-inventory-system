@@ -46,7 +46,7 @@ This system was developed to help industries control inventory of raw materials 
 
 ## 🏗️ Architecture Diagram
 
-![Architecture Diagram](docs/architecture-diagram.drawio)
+![Architecture Diagram]([docs/architecture-diagram.drawio](https://drive.google.com/file/d/1m9yLnTVUNiQA3cV3v0gR_b1E1ZS2D8Cf/view?usp=sharing))
 
 The project follows a modern fullstack architecture with complete separation of concerns:
 
