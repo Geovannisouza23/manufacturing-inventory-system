@@ -1,0 +1,10 @@
+target/
+.mvn/
+mvnw
+mvnw.cmd
+*.md
+.git
+.gitignore
+.dockerignore
+Dockerfile
+*.log
